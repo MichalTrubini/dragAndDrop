@@ -58,3 +58,63 @@ function drop(e) {
     dropArea.appendChild(draggable);
   }
 }
+
+
+let lineElem;
+let fromXY, toXY;
+let isDrawing = false;
+
+function drawLineXY(fromXY, toXY) {
+  if (!lineElem) {
+    lineElem = document.createElement('canvas');
+    lineElem.style.position = "absolute";
+    lineElem.style.zIndex = -100;
+    document.body.appendChild(lineElem);
+  }
+  let leftpoint, rightpoint;
+  if (fromXY.x < toXY.x) {
+    leftpoint = fromXY;
+    rightpoint = toXY;
+  } else {
+    leftpoint = toXY;
+    rightpoint = fromXY;
+  }
+
+  let lineWidthPix = 4;
+  let gutterPix = 10;
+  let origin = {x: leftpoint.x - gutterPix, y: Math.min(fromXY.y, toXY.y) - gutterPix};
+  lineElem.width = Math.max(rightpoint.x - leftpoint.x, lineWidthPix) + 2.0 * gutterPix;
+  lineElem.height = Math.abs(fromXY.y - toXY.y) + 2.0 * gutterPix;
+  lineElem.style.left = origin.x + "px";
+  lineElem.style.top = origin.y + "px";
+  let ctx = lineElem.getContext('2d');
+  // Use the identity matrix while clearing the canvas
+  ctx.save();
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.clearRect(0, 0, lineElem.width, lineElem.height);
+  ctx.restore();
+  ctx.lineWidth = lineWidthPix;
+  ctx.strokeStyle = '#09f';
+  ctx.beginPath();
+  ctx.moveTo(fromXY.x - origin.x, fromXY.y - origin.y);
+  ctx.lineTo(toXY.x - origin.x, toXY.y - origin.y);
+  ctx.stroke();
+}
+
+document.querySelectorAll('.circle').forEach(function(circle) {
+    circle.addEventListener('mousedown', function(e) {
+      isDrawing = true;
+      fromXY = {x: e.clientX, y: e.clientY};
+    });
+    circle.addEventListener('mousemove', function(e) {
+      if (isDrawing) {
+        toXY = {x: e.clientX, y: e.clientY};
+        drawLineXY(fromXY, toXY);
+      }
+    });
+    circle.addEventListener('mouseup', function(e) {
+      isDrawing = false;
+      toXY = {x: e.clientX, y: e.clientY};
+      drawLineXY(fromXY, toXY);
+    });
+  });

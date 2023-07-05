@@ -18,3 +18,19 @@
     height: 100px;
     border: 1px solid black;
 }
+
+.wrapper {
+    width: 200px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 200px;
+    margin-left: 50px;
+    position: relative;
+}
+
+.circle {
+    width: 10px;
+    height: 10px;
+    border: 1px solid black;
+    border-radius: 100%;
+}
