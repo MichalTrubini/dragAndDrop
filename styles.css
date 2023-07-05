@@ -1,0 +1,20 @@
+.hide {
+    opacity: 0;
+}
+
+.container {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 300px 1fr;
+}
+
+.sidebar {
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.rectangle {
+    width: 100px;
+    height: 100px;
+    border: 1px solid black;
+}
