@@ -10,15 +10,23 @@
   <body style="min-width: 100vw; min-height: 100vh">
     <div class="container">
       <div class="sidebar">
-        <div class="rectangle" draggable="true" id="rectangle" data-origin="prime"></div>
-        <div class="wrapper" draggable="false">
-            <div class="circle"></div>
-            <div class="circle"></div>
+        <h3 class="choose">Choose:</h3>
+        <div class="wrapper">
+          <div class="block">
+            <div class="eventStep" draggable="true" id="eventStep" data-origin="prime-event"></div>
+            <p class="title">Event</p>
           </div>
+          <div class="block">
+            <div class="delayStep" draggable="true" id="delayStep" data-origin="prime-delay"></div>
+            <p class="title">Delay</p>
+          </div>
+          <div class="block">
+            <div class="decisionStep" draggable="true" id="decisionStep" data-origin="prime-decision"></div>
+            <p class="title">Decision</p>
+          </div>
+        </div>
       </div>
-      <div class="dropArea">
-
-      </div>
+      <div class="dropArea"></div>
     </div>
   </body>
 </html>
