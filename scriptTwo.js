@@ -1,7 +1,7 @@
 const eventStep = document.getElementById("eventStep");
 const delayStep = document.getElementById("delayStep");
 const decisionStep = document.getElementById("decisionStep");
-const dropArea = document.querySelector(".dropArea");
+const dropArea = document.querySelector(".dropBox");
 
 let dragOffsetX = 0;
 let dragOffsetY = 0;
@@ -23,10 +23,6 @@ function generateRandomString(length) {
 
 function dragStart(e) {
   e.dataTransfer.setData("text/plain", e.target.dataset.origin);
-
-  const rect = e.target.getBoundingClientRect();
-  dragOffsetX = e.clientX - rect.left;
-  dragOffsetY = e.clientY - rect.top;
 }
 
 function dragOver(e) {
@@ -38,15 +34,12 @@ function drop(e) {
   const data = e.dataTransfer.getData("text/plain");
 
   // calculate the position of the drop
-  const dropPositionX = e.clientX - dragOffsetX;
-  const dropPositionY = e.clientY - dragOffsetY;
+
   if (data === "prime-event") {
     let clone = eventStep.cloneNode(true);
     console.log(clone);
     // update the position of the draggable element
     clone.style.position = "absolute";
-    clone.style.left = dropPositionX + "px";
-    clone.style.top = dropPositionY + "px";
     clone.dataset.origin = "clone-" + generateRandomString(10);
     dropArea.appendChild(clone);
     clone.addEventListener("dragstart", dragStart);
@@ -58,8 +51,6 @@ function drop(e) {
 
     // update the position of the draggable element
     clone.style.position = "absolute";
-    clone.style.left = dropPositionX + "px";
-    clone.style.top = dropPositionY + "px";
     clone.dataset.origin = "clone-" + generateRandomString(10);
     dropArea.appendChild(clone);
     clone.addEventListener("dragstart", dragStart);
@@ -71,14 +62,12 @@ function drop(e) {
 
     // update the position of the draggable element
     clone.style.position = "absolute";
-    clone.style.left = dropPositionX + "px";
-    clone.style.top = dropPositionY + "px";
     clone.dataset.origin = "clone-" + generateRandomString(10);
     dropArea.appendChild(clone);
     clone.addEventListener("dragstart", dragStart);
     return;
   }
-  
+
   const id = e.dataTransfer.getData("text/plain");
   const draggable = document.querySelector(`[data-origin='${id}']`);
   // update the position of the draggable element
