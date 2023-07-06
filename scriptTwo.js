@@ -1,7 +1,8 @@
 const eventStep = document.getElementById("eventStep");
 const delayStep = document.getElementById("delayStep");
 const decisionStep = document.getElementById("decisionStep");
-const dropArea = document.querySelector(".dropBox");
+let dropArea = document.querySelector(".dropBox");
+let dropItem = document.querySelector(".dropItem");
 
 let dragOffsetX = 0;
 let dragOffsetY = 0;
@@ -36,19 +37,23 @@ function drop(e) {
   // calculate the position of the drop
 
   if (data === "prime-event") {
+    dropArea = document.querySelector(".dropBox");
     let clone = eventStep.cloneNode(true);
-    console.log(clone);
-    // update the position of the draggable element
     clone.style.position = "absolute";
     clone.dataset.origin = "clone-" + generateRandomString(10);
     dropArea.appendChild(clone);
-    clone.addEventListener("dragstart", dragStart);
+    dropArea.classList.add("droppedItem");
+    dropArea.classList.remove("dropBox");
+    dropItem.remove();
+    //clone.addEventListener("dragstart", dragStart);
     return;
   }
 
   if (data === "prime-delay") {
+    dropArea = document.querySelector(".dropBox");
+    //remove dropItem from the DOM
     let clone = delayStep.cloneNode(true);
-
+    console.log(dropArea)
     // update the position of the draggable element
     clone.style.position = "absolute";
     clone.dataset.origin = "clone-" + generateRandomString(10);
@@ -58,6 +63,7 @@ function drop(e) {
   }
 
   if (data === "prime-decision") {
+    dropArea = document.querySelector(".dropBox");
     let clone = decisionStep.cloneNode(true);
 
     // update the position of the draggable element
